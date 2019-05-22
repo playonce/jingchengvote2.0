@@ -1,0 +1,2 @@
+%~dp0 
+ffmpeg -i D:\WorkSpace\wamp64\www\jingchengvote\admin\uploads\f07571913efa561d126a5a84ec39bbd9.mp4 -y -f mjpeg -ss 3 -t 1 -s 800x450 D:\WorkSpace\wamp64\www\jingchengvote\admin\uploads\f07571913efa561d126a5a84ec39bbd9.png

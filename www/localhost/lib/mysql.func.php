@@ -200,8 +200,7 @@ function deletedb($table,$where=null){
 function fetchOne($sql,$result_type = MYSQLI_ASSOC){
 	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
 	$result=mysqli_query($link, $sql);
-    @$row=mysqli_fetch_array($result,$result_type);
-
+    @$row=mysqli_fetch_array($result, $result_type);
 	return $row;
 
 }

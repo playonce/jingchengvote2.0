@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once '../include.php';
 $username=$_POST['username'];
 $username=addslashes($username);
@@ -18,7 +18,7 @@ if($verify==$verify1){
 		$_SESSION['adminId']=$row['id'];
 		alertMes("登陆成功","index.php");
 	}else{
-		alertMes("登陆失败，重新登陆","login.php");
+		alertMes('登录失败', "login.php");
 	}
 }else{
 	alertMes("验证码错误","login.php");

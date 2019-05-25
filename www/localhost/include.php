@@ -1,4 +1,4 @@
-<?php 
+<?php
 header("content-type:text/html;charset=utf-8");
 date_default_timezone_set("PRC");
 session_start();
@@ -16,4 +16,3 @@ require_once 'pro.inc.php';
 require_once 'album.inc.php';
 require_once 'upload.func.php';
 require_once 'filetxt.php';
-connect();

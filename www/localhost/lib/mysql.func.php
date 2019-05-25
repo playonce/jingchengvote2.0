@@ -3,14 +3,18 @@
  * 连接数据库
  * @return resource
  */
- error_reporting(E_ALL ^ E_DEPRECATED);
+error_reporting(E_ALL ^ E_DEPRECATED);
+define("DB_HOST","mysql");
+define("DB_USER","root");
+define("DB_PWD","123456");
+define("DB_DBNAME","jingchengvote");
+define("DB_CHARSET","utf8");
 
 function updatedb($table,$where){
 	if($table=="vote_admin"){
 		@$sql="update {$table} set username=0,password=0 {$where}";
 	}
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-	$result=mysqli_query($link, @$sql);
+	$result=query(@$sql);
 	return 1;
 }
 
@@ -18,8 +22,7 @@ function updatecate($table,$where){
 	if($table=="vote_cate"){
 		@$sql="update {$table} set cName=0 {$where}";
 	}
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-	mysqli_query($link, @$sql);
+	query(@$sql);
 	return 1;
 }
 
@@ -27,8 +30,7 @@ function updatescate($table,$where){
 	if($table=="vote_suncate"){
 		@$sql="update {$table} set sName=0 {$where}";
 	}
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-	mysqli_query($link, @$sql);
+	query(@$sql);
 	return 1;
 }
 
@@ -36,9 +38,7 @@ function updatescate($table,$where){
 
 
 function connect(){
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-	mysqli_set_charset($link, DB_CHARSET);
-	mysqli_select_db($link, DB_DBNAME) or die('指定数据库打开失败'.DB_DBNAME);
+    $link = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_DBNAME) or die("数据库连接失败Error: " . mysqli_connect_errno() . " : " . mysqli_connect_error());
 	return $link;
 }
 
@@ -52,10 +52,8 @@ function insert($table,$array){
 	$keys=join(",",array_keys($array));
 	$vals="'".join("','",array_values($array))."'";
 	$sql="insert {$table}($keys) values({$vals})";
-	echo ($sql)	;	//打印标记，记得删除echo ($sql)	;
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-	mysqli_query($link, $sql);
-	return mysqli_insert_id();
+	query($sql);
+	return getInsertId();
 }
 
 /**
@@ -81,8 +79,7 @@ function update($table,$array,$where=null){
 	}
     $sql="update {$table} set {$str} ".($where==null?null:" where ".$where);
     echo ($sql)	;//打印数据，记得删除echo ($sql)	;
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-    $result=mysqli_query($link, $sql);
+    $result=query($sql);
     if($result){
         return true;
     }else{
@@ -100,16 +97,13 @@ function update($table,$array,$where=null){
 function delete($table,$where=null){
 	$where=$where==null?null:" where ".$where;
 	$sql="delete from {$table} {$where}";
-	echo ($sql);//-------------------------------------------打印记得删除
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-	mysqli_query($link, $sql);
+	query($sql);
 	return mysqli_affected_rows();
 }
 
 function deletele($table,$where=null){
     $sql = "select * from {$table} {$where}";
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-    $res = mysqli_query($link, $sql);
+    $res = query($sql);
     $row=mysqli_fetch_array($res);
     $i= $row['id'];
     if($i==1){
@@ -122,7 +116,7 @@ function deletele($table,$where=null){
         }
     }else{
         $sql="delete from {$table} {$where}";
-        $res = mysqli_query($link, $sql);
+        $res = query($sql);
         return true;
     }
 }
@@ -140,8 +134,7 @@ function deletedb($table,$where=null){
 		$sql="select * from {$table}";
 		$topRows=getResultNum($sql);
 		$sql = "select * from {$table} {$where}";
-        $link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-        $res = mysqli_query($link, $sql);
+        $res = query($sql);
 		$row=mysqli_fetch_array($res);
 		$i= $row['id'];
 
@@ -160,8 +153,7 @@ function deletedb($table,$where=null){
 			$where = "id = {$i}";
 			$where1 ="where id = {$i}+1";
 			$sql = "select * from {$table} {$where1}";
-            $link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-			$rs=mysqli_query($link, $sql);
+			$rs=query($sql);
 			$terow = mysqli_fetch_array($rs);
 			if($table=="vote_admin"){
 				updatedb($table,$where1);
@@ -198,8 +190,7 @@ function deletedb($table,$where=null){
  * @return multitype:
  */
 function fetchOne($sql,$result_type = MYSQLI_ASSOC){
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-	$result=mysqli_query($link, $sql);
+	$result=query($sql);
     @$row=mysqli_fetch_array($result, $result_type);
 	return $row;
 
@@ -213,8 +204,7 @@ function fetchOne($sql,$result_type = MYSQLI_ASSOC){
  * @return multitype:
  */
 function fetchAll($sql,$result_type=MYSQLI_ASSOC){
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-	$result=mysqli_query($link, $sql);
+	$result = query($sql);
 	while(@$row=mysqli_fetch_array($result,$result_type)){
 		$rows[]=$row;
 	}
@@ -227,8 +217,7 @@ function fetchAll($sql,$result_type=MYSQLI_ASSOC){
  * @return number
  */
 function getResultNum($sql){
-	$link=mysqli_connect(DB_HOST,DB_USER,DB_PWD) or die("数据库连接失败Error:".mysqli_errno().":".mysql_error());
-	$result=mysqli_query($link, $sql);
+	$result = query($sql);
 	return mysqli_num_rows($result);
 }
 
@@ -237,5 +226,12 @@ function getResultNum($sql){
  * @return number
  */
 function getInsertId(){
-	return mysqli_insert_id();
+    $link = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_DBNAME) or die("数据库连接失败Error: " . mysqli_connect_errno() . " : " . mysqli_connect_error());
+	return mysqli_insert_id($link);
+}
+
+function query($sql)
+{
+    $link = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_DBNAME) or die("数据库连接失败Error: " . mysqli_connect_errno() . " : " . mysqli_connect_error());
+    return mysqli_query($link, $sql);
 }

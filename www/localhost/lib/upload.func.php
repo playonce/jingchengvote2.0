@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * 构建上传文件信息
@@ -41,6 +41,7 @@ function uploadFile($path="uploads",$allowExt=array("gif","jpeg","png","jpg","wb
 	if(!($files&&is_array($files))){
 		return ;
 	}
+    $uploadedFiles = [];
 	foreach($files as $file){
 		if($file['error']===UPLOAD_ERR_OK){
 			$ext=getExt($file['name']);
@@ -66,7 +67,7 @@ function uploadFile($path="uploads",$allowExt=array("gif","jpeg","png","jpg","wb
 			$unname=getUniName();
 			$filename=$unname.".".$ext;
 			$destination=$path."/".$filename;
-			if (in_array($ext,$imgExt)){
+			if (in_array($ext, $imgExt)){
                 if(move_uploaded_file($file['tmp_name'], $destination)){
                     $file['name']=$filename;
                     unset($file['tmp_name'],$file['size'],$file['type']);

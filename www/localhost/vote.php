@@ -49,16 +49,15 @@ $IPaddress=getIPaddress();
 $sql="select * from vote_pro where id={$id} ORDER BY pSn ASC ";
 $cateId=fetchOne($sql);
 $sql="insert into vote_ip(id,ip) VALUES({$cateId['sunId']},'{$IPaddress}') ";
-$result=mysql_query($sql);
-$ipid=mysql_insert_id();
+query($sql);
+$ipid=getInsertId();
 $sql="select * from vote_iptime where iid='{$ipid}'";
-$result=mysql_query($sql);
-$row=mysql_fetch_array($result,MYSQL_ASSOC);
+$row = fetchOne($sql);
 $mess;
 if($row)
 {
     $sql="update vote_pro set pVote=pVote+1 WHERE id={$id}";
-    mysql_query($sql);
+    query($sql);
     $mess=alertMes("投票成功！","voteMain.php?id={$id}");
 }
 else $mess=alertMes("您已经投过票！","voteMain.php?id={$id}");

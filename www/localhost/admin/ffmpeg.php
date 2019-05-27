@@ -53,7 +53,7 @@ function foreachDir($dirname)
 
     if(is_array($mpVeo)&&$mpVeo){
         $sql="insert into vote_album(pid,albumPath) VALUES({$id},'{$name}')";
-        mysql_query($sql);
+        query($sql);
         }
     $str = "ffmpeg -i " . $from . " -y -f mjpeg -ss 3 -t 1 -s ".$wid."x".$heg." ".$to . "\\" . $name;
 echo $str;

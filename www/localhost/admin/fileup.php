@@ -8,7 +8,7 @@ if ($id==null){
     $mess=alertMes("错误！","listPro.php");
 }
 $sql="select * from vote_album where pid={$id}";
-$result=mysql_query($sql);
+$result=query($sql);
 if (mysql_num_rows($result)>0){
 
     filer($id);

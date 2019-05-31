@@ -71,26 +71,8 @@ if(!($scates && is_array($scates)))alertMes("不好意思，网站维护中!!!",
 
                     <div class="pro_p">
                             <div class="pro_main1">
-                                <a href="<?php
-                                $sql="select albumPath,Path from vote_album where pid={$item['id']} limit 1";
-                                $proIg=fetchOne($sql);
-                                $info = pathinfo("admin\\uploads\\" . $proIg['albumPath']);
-                                $pIname = basename($proIg['albumPath'],".".$info['extension']);
-                                if (file_exists("admin\\uploads\\".$pIname))
-                                {
-                                    if (file_exists("admin\\uploads\\".$pIname."\\index.html"))
-                                        echo "admin\\uploads\\".$pIname."\\index.html";
-                                    else if (file_exists("admin\\uploads\\".$pIname."\\Untitled-1.html"))
-                                        echo "admin\\uploads\\".$pIname."\\Untitled-1.html";
-                                    else if (file_exists("admin\\uploads\\".$pIname."\\main.html"))
-                                        echo "admin\\uploads\\".$pIname."\\main.html";
-                                }else if (file_exists("admin\\uploads\\".$pIname.".swf"))
-                                    echo "admin\\uploads\\".$pIname.".swf";
-                                else if (file_exists("admin\\uploads\\".$pIname.".mp4"))
-                                    echo "admin\\uploads\\".$pIname.".mp4";
-                                else if (file_exists("admin\\uploads\\".$proIg['albumPath']))
-                                    echo "admin\\uploads\\".$proIg['albumPath'];
-                                ?>"><div class="pro_img"><img src="image_180/<?php echo $proIg['albumPath'];?>" alt="" width="180px" height="200px" /></div></a>
+                            <a href="works/<?php echo $item['path'];
+                                ?>"><div class="pro_img"><img src="works/<?php echo $item['path'];?>" alt="" width="180px" height="200px" /></div></a>
                                 <div class="pro_name">
                                     <div class="pro_name_left">
                                         <?php echo $item['pSn'];?>

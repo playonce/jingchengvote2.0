@@ -1,12 +1,20 @@
 <?php
 require_once 'include.php';
 
-    $sql="select * from vote_cate where id=(select max(id) from vote_cate)";
+    $sql="select * from vote_cate order by id desc limit 1";
     $topname=fetchOne($sql);
-    $sql="select * from vote_suncate WHERE  id in(SELECT sunId FROM  vote_pro WHERE cId={$topname['id']}) ORDER BY pSn ASC ";
+    $sql = sprintf("select distinct(sunId) as id from vote_pro WHERE cId = %s", $topname['id']);
+    $ret =fetchAll($sql);
+    foreach ($ret as $item)
+    {
+        $rets[] = $item['id'];
+    }
+    $sql = sprintf('select * from vote_suncate where id in (%s)', implode(', ', $rets));
     $scates=fetchAll($sql);
-    if(!($scates && is_array($scates)))alertMes("不好意思，网站维护中!!!", "http://www.jxutcm.edu.cn/");
-
+    if (!($scates && is_array($scates)))
+    {
+        alertMes("不好意思，网站维护中!!!" .$sql, "http://www.jxutcm.edu.cn/");
+    }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -50,7 +58,10 @@ require_once 'include.php';
             $thisPro=fetchAll($sql);
             $sql="select max(pVote) as max from vote_pro WHERE sunId={$scate['id']}";
             $maxVote=fetchOne($sql);
-            if ($maxVote['max']==0)$maxVote['max']=1;
+            if ($maxVote['max']==0)
+            {
+                $maxVote['max']=1;
+            }
             ?>
         <div class="cates">
             <table width="100%">

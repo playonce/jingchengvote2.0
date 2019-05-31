@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * 添加作品
  * @return string
@@ -7,8 +7,8 @@ function addPro(){
 	$arr=$_POST;
 	$arr['pubTime']=time();
 	$path="./uploads";
-	$uploadFiles=uploadFile($path);
-	if(is_array($uploadFiles)&&$uploadFiles){
+	$uploadFiles = uploadFile($path);
+	if(is_array($uploadFiles) && $uploadFiles){
 		foreach($uploadFiles as $key=>$uploadFile){
 			thumb($path."/".$uploadFile['name'],"../image_45/".$uploadFile['name'],45,50);
 			thumb($path."/".$uploadFile['name'],"../image_180/".$uploadFile['name'],180,200);
@@ -36,7 +36,7 @@ function addPro(){
 
 		}
 		$mes="<p>添加失败!</p><a href='addPro.php' target='mainFrame'>重新添加</a>";
-		
+
 	}
 
 	return $mes;
@@ -85,7 +85,7 @@ function editPro($id){
 		}
 	}
 		$mes="<p>编辑失败!</p><a href='listPro.php' target='mainFrame'>重新编辑</a>";
-		
+
 	}
 	return $mes;
 }
@@ -122,7 +122,7 @@ function delPro($id){
 
 
 
-			
+
 		}
 	}
 	$where1="pid={$id}";
@@ -168,7 +168,7 @@ function delImg($id){
 				unlink("../image_180/".$proImg['albumPath']);
 			}
 
-			
+
 		}
 	}
 	$where1="pid={$id}";

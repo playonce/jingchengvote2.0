@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once '../include.php';
 checkLogined();
 $cates=getAllSunCate();
@@ -21,7 +21,7 @@ $topname=fetchOne($sql);
     <div class="operation_user clearfix">
         <div class="link fr">
             <b>欢迎您
-			<?php 
+			<?php
 				if(isset($_SESSION['adminName'])){
 					echo $_SESSION['adminName'];
 				}elseif(isset($_COOKIE['adminName'])){
@@ -36,9 +36,9 @@ $topname=fetchOne($sql);
             <!--右侧内容-->
             <div class="cont">
                 <div class="title">后台管理</div>
-      	 		<!-- 嵌套网页开始 -->         
+      	 		<!-- 嵌套网页开始 -->
                 <iframe src="main.php"  frameborder="0" name="mainFrame" width="100%" height="522"></iframe>
-                <!-- 嵌套网页结束 -->   
+                <!-- 嵌套网页结束 -->
             </div>
         </div>
         <!--左侧列表-->
@@ -72,7 +72,7 @@ $topname=fetchOne($sql);
                             <dd><a href="listAdmin.php" target="mainFrame">管理员列表</a></dd>
                         </dl>
                     </li>
-                    
+
                          <li>
                         <h3><span onclick="show('menu6','change6')" id="change6">+</span>作品图片管理</h3>
                         <dl id="menu6" style="display:none;">

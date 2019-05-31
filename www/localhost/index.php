@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once 'include.php';
 
 $sql="select * from vote_cate where id=(select max(id) from vote_cate)";
@@ -14,7 +14,6 @@ $scates=fetchAll($sql);
 <meta charset="utf-8">
 <title>首页</title>
 <script type="text/javascript" src="js/vedio.min.js"></script>
-<![endif]-->
 
     <link href="styles/index.css" type="text/css" rel="stylesheet"/>
 
@@ -53,36 +52,10 @@ $scates=fetchAll($sql);
             <div class="pro_cate">
             <a href="page.php?cid=<?php echo $topname['id'];?>&sid=<?php echo $cate['id'];?>" style="color: #676767">   <span style="float: right;">更多》</span><?php echo $cate['sName'];?></a>
             </div>
-            <?php $sql="select * from vote_pro where sunId={$cate['id']} c limit 4";$pro= fetchAll($sql); if(is_array($pro)) foreach ($pro as $item):?>
+            <?php $sql="select * from vote_pro where sunId={$cate['id']} limit 4";$pro= fetchAll($sql); if(is_array($pro)) foreach ($pro as $item):?>
             <div class="pro_main">
-                <a href="<?php
-                    $sql="select albumPath,Path from vote_album where pid={$item['id']} limit 1";
-                    $proIg=fetchOne($sql);
-                    $info = pathinfo("admin\\uploads\\" . $proIg['albumPath']);
-                    $pIname = basename($proIg['albumPath'],".".$info['extension']);
-                    if (file_exists("admin\\uploads\\".$pIname))
-                        {
-                        if (file_exists("admin\\uploads\\".$pIname."\\index.html"))
-                            echo "admin\\uploads\\".$pIname."\\index.html";
-                        else if (file_exists("admin\\uploads\\".$pIname."\\Untitled-1.html"))
-                                echo "admin\\uploads\\".$pIname."\\Untitled-1.html";
-                        else if (file_exists("admin\\uploads\\".$pIname."\\main.html"))
-                                echo "admin\\uploads\\".$pIname."\\main.html";
-                    }else if (file_exists("admin\\uploads\\".$pIname.".avi"))
-                        echo "admin\\uploads\\".$pIname.".avi";
-                    else if (file_exists("admin\\uploads\\".$pIname.".mp4"))
-                        echo "admin\\uploads\\".$pIname.".mp4";
-                    else if (file_exists("admin\\uploads\\".$pIname.".flv"))
-                        echo "admin\\uploads\\".$pIname.".flv";
-                    else if (file_exists("admin\\uploads\\".$pIname.".rm"))
-                        echo "admin\\uploads\\".$pIname.".rm";
-                    else if (file_exists("admin\\uploads\\".$pIname.".rmvb"))
-                        echo "admin\\uploads\\".$pIname.".rmvb";
-                    else if (file_exists("admin\\uploads\\".$pIname.".mpg"))
-                        echo "admin\\uploads\\".$pIname.".mpg";
-                    else if (file_exists("admin\\uploads\\".$proIg['albumPath']))
-                        echo "admin\\uploads\\".$proIg['albumPath'];
-                ?>"><div class="pro_img"><img src="image_180/<?php echo $proIg['albumPath'];?>" alt="" width="180px" height="200px" /></div></a>
+                <a href="works/<?php echo $item['path'];
+                ?>"><div class="pro_img"><img src="works/<?php echo $item['path'];?>" alt="" width="180px" height="200px" /></div></a>
                 <div class="pro_name">
                     <div class="pro_name_left">
                         <?php echo $item['pSn'];?>

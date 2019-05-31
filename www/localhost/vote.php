@@ -50,17 +50,20 @@ $sql="select * from vote_pro where id={$id} ORDER BY pSn ASC ";
 $cateId=fetchOne($sql);
 $sql="insert into vote_ip(id,ip) VALUES({$cateId['sunId']},'{$IPaddress}') ";
 query($sql);
-$ipid=getInsertId();
-$sql="select * from vote_iptime where iid='{$ipid}'";
+$sql = sprintf("select * from vote_ip where id = %s and ip = '%s' order by iid desc limit 1", $cateId['sunId'], $IPaddress);
+$ret = fetchOne($sql);
+$sql = sprintf("select * from vote_iptime where iid = %s", $ret['iid']);
 $row = fetchOne($sql);
-$mess;
 if($row)
 {
     $sql="update vote_pro set pVote=pVote+1 WHERE id={$id}";
     query($sql);
     $mess=alertMes("投票成功！","voteMain.php?id={$id}");
 }
-else $mess=alertMes("您已经投过票！","voteMain.php?id={$id}");
+else
+{
+    $mess=alertMes("您已经投过票！" ,"voteMain.php?id={$id}");
+}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

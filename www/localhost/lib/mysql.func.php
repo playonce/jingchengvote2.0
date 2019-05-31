@@ -191,7 +191,7 @@ function deletedb($table,$where=null){
  */
 function fetchOne($sql,$result_type = MYSQLI_ASSOC){
 	$result=query($sql);
-    @$row=mysqli_fetch_array($result, $result_type);
+    $row=mysqli_fetch_array($result, $result_type);
 	return $row;
 }
 

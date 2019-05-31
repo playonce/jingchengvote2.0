@@ -42,6 +42,8 @@ CREATE TABLE `vote_pro`(
 `cId` smallint unsigned not null,
 `sunId` smallint unsigned not null,
 pVote int unsigned default 0,
+`path` varchar(100) not null,
+`albumPath` varchar(100),
 UNIQUE KEY Name (pName,cID,sunId)  
 )DEFAULT CHARSET=gbk;
 

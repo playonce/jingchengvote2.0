@@ -61,23 +61,8 @@ if(@$mess){
     <div id="content">
         <div id="pro_c">
             <div style="height: 30px; width:auto;"></div>
-        <div><?php
-            $sql="select albumPath,Path from vote_album where pid={$id} limit 1";
-            $proIg=fetchOne($sql);
-            $info = pathinfo("admin\\uploads\\" . $proIg['albumPath']);
-            $pIname = basename($proIg['albumPath'],".".$info['extension']);
-            if (file_exists("admin\\uploads\\".$pIname)):?>
-                <?php if (file_exists("admin\\uploads\\".$pIname."\\index.html")):?><a href="admin/uploads/<?php echo $pIname."\\index.html";?>"><img src="admin/uploads/<?php echo $proIg['albumPath'];?>" width="900px"> </a>
-                <?php elseif (file_exists("admin\\uploads\\".$pIname."\\Untitled-1.html")):?><a href="admin/uploads/<?php echo $pIname."\\Untitled.html";?>"><img src="admin/uploads/<?php echo $proIg['albumPath'];?>" width="900px"> </a>
-                <?php elseif (file_exists("admin\\uploads\\".$pIname."\\main.html")):?><a href="admin/uploads/<?php echo $pIname."\\Untitled.html";?>"><img src="admin/uploads/<?php echo $proIg['albumPath'];?>" width="900px"> </a>
-                <?php endif;?>
-            <?php elseif (file_exists("admin\\uploads\\".$pIname.".swf")):?>
-                <embed src="admin/uploads/<?php echo $pIname.".swf";?>" hidden=no width="800" height="450"></embed>
-            <?php elseif (file_exists("admin\\uploads\\".$pIname.".mp4")):?>
-                <embed src="admin/uploads/<?php echo $pIname.".mp4";?>" hidden=no width="900" height="450"></embed>
-            <?php elseif (file_exists("admin\\uploads\\".$proIg['albumPath'])):?>
-            <img src="admin/uploads/<?php echo $proIg['albumPath'];?>" width="900px" />
-            <?php endif;?>
+            <div>
+                <img src="works/<?php echo $pro['path'];?>" width="900px" />
             </div>
         <div>作者：<?php echo $pro['aName'];?></div>
         <div>所属学院：<?php echo $pro['college'];?></div>

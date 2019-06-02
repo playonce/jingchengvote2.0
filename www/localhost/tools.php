@@ -44,7 +44,7 @@ function insertPro()
                     continue;
                 }
                 printf($sun_file . "\n");
-                $need_info = $file == 'dw' ? is_dir(getCompleteFile($sun_dir, $sun_file)) : is_file(getCompleteFile($sun_dir, $sun_file));
+                $need_info = is_file(getCompleteFile($sun_dir, $sun_file));
                 if ($need_info)
                 {
                     $format = array('.png', '.jpg', '.gif', '.mp4');
@@ -56,7 +56,13 @@ function insertPro()
                         $info[] = 1;
                         $info[] = $ret[$file];
                         $info[] = time();
-                        $info[] = $file . DIRECTORY_SEPARATOR . $sun_file;
+                        $path = $file . DIRECTORY_SEPARATOR . $sun_file;
+                        $info[] = $path;
+                        if ($file == 'fl')
+                        {
+                            $path = 'default.jpg';
+                        }
+                        $info[] = $path;
                         $item = [];
                         foreach ($info as $value)
                         {
@@ -83,7 +89,7 @@ function insertPro()
     var_dump($works);
     foreach ($works as $item)
     {
-        $sql = sprintf("insert into vote_pro(pSn, aName, college, pName, cId, sunId, pubTime, path) values (%s)", implode(', ', $item));
+        $sql = sprintf("insert into vote_pro(pSn, aName, college, pName, cId, sunId, pubTime, path, albumPath) values (%s)", implode(', ', $item));
         print($sql . "\n");
         query($sql);
     }

@@ -72,7 +72,7 @@ if(!($scates && is_array($scates)))alertMes("不好意思，网站维护中!!!",
                     <div class="pro_p">
                             <div class="pro_main1">
                             <a href="works/<?php echo $item['path'];
-                                ?>"><div class="pro_img"><img src="works/<?php echo $item['path'];?>" alt="" width="180px" height="200px" /></div></a>
+                                ?>"><div class="pro_img"><img src="works/<?php echo !$item['path'] ?: 'dafault.jpg';?>" alt="" width="180px" height="200px" /></div></a>
                                 <div class="pro_name">
                                     <div class="pro_name_left">
                                         <?php echo $item['pSn'];?>

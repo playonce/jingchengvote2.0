@@ -55,7 +55,7 @@ $scates=fetchAll($sql);
             <?php $sql="select * from vote_pro where sunId={$cate['id']} limit 4";$pro= fetchAll($sql); if(is_array($pro)) foreach ($pro as $item):?>
             <div class="pro_main">
                 <a href="works/<?php echo $item['path'];
-                ?>"><div class="pro_img"><img src="works/<?php echo $item['path'];?>" alt="" width="180px" height="200px" /></div></a>
+                ?>"><div class="pro_img"><img src="works/<?php echo !$item['path'] ?: 'default.jpg';?>" alt="" width="180px" height="200px" /></div></a>
                 <div class="pro_name">
                     <div class="pro_name_left">
                         <?php echo $item['pSn'];?>
